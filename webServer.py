@@ -22,7 +22,7 @@ def webServer(port=13331):
       
       #opens the client requested file. 
       #Plenty of guidance online on how to open and read a file in python. How should you read it though if you plan on sending it through a socket?
-      f = open(filename[1:] 'rb')
+      f = open(filename[1:], 'rb')
 
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?    
 
@@ -38,7 +38,7 @@ def webServer(port=13331):
       #Send the content of the requested file to the client (don't forget the headers you created)!
       #Send everything as one send command, do not send one line/item at a time!
       
-      connectionSocket.sendall(validResponseHeader, outputdata).encode()
+      connectionSocket.sendall((validResponseHeader + outputdata).encode())
 
       connectionSocket.close() #closing the connection socket
       
@@ -47,7 +47,7 @@ def webServer(port=13331):
       # Remember the format you used in the try: block
 
       errorResponseHeader = "HTTP/1.1 404 Not Found\r\n"
-      connectionSocket.send(errorResponseHeader)
+      connectionSocket.send(errorResponseHeader.encode())
 
       #Close client socket
       connectionSocket.close()
