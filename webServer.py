@@ -17,7 +17,7 @@ def webServer(port=13331):
     
     try:
        #a client is sending you a message 
-      message = connectionSocket.recv(1024)
+      message = connectionSocket.recv(1024).decode()
       filename = message.split()[1]
       
       #opens the client requested file. 
@@ -33,12 +33,12 @@ def webServer(port=13331):
     
                
       for i in f: #for line in file
-        outputdata += f.read()
+        outputdata = f.read()
         
       #Send the content of the requested file to the client (don't forget the headers you created)!
       #Send everything as one send command, do not send one line/item at a time!
       
-      connectionSocket.sendall((validResponseHeader + outputdata).encode())
+      connectionSocket.sendall((validResponseHeader. + outputdata).encode())
 
       connectionSocket.close() #closing the connection socket
       
