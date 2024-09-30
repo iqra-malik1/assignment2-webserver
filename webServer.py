@@ -1,4 +1,4 @@
-ode# import socket module
+# import socket module
 from socket import *
 # In order to terminate the program
 import sys
