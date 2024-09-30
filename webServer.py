@@ -9,14 +9,11 @@ def webServer(port=13331):
   #Prepare a server socket
   serverSocket.bind(("", port))
   serverSocket.listen()
-  print("listening on port 13331")
   
   while True:
     #Establish the connection
     
-    print('Ready to serve...')
     connectionSocket, addr = serverSocket.accept() #are you accepting connections?
-    print("Accepted connection request!")
     
     try:
        #a client is sending you a message 
