@@ -28,6 +28,8 @@ def webServer(port=13331):
 
       validResponseHeader = "HTTP/1.1 200 OK"
       outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
+      outputdata += b"Server: Python Server\r\n"
+      outputdata += b"Connection: Close \r\n\r\n"
                
       for i in f: #for line in file
         outputdata = f.read()
@@ -35,7 +37,7 @@ def webServer(port=13331):
       #Send the content of the requested file to the client (don't forget the headers you created)!
       #Send everything as one send command, do not send one line/item at a time!
       
-      connectionSocket.sendall((validResponseHeader + outputdata + "\r\n").encode())
+      connectionSocket.sendall(validResponseHeader.encode() + outputdata)
 
       connectionSocket.close() #closing the connection socket
       
@@ -44,24 +46,13 @@ def webServer(port=13331):
       # Remember the format you used in the try: block
 
       errorResponseHeader = "HTTP/1.1 404 Not Found\r\n"
-      connectionSocket.sendall(errorResponseHeader.encode())
+      errorResponseHeader += "Content-Type: text/html; charset=UTF-8\r\n"
+      errorResponseHeader += "Connection: Close \r\n\r\n"
+      
+      connectionSocket.sendall(errorResponseHeader.encode() + errorResponseHeader.encode())
 
       #Close client socket
       connectionSocket.close()
 
 if __name__ == "__main__":
   webServer(13331)
-
-
-Ungraded
-Python Programming: Web Server
-Inactive Submission
-Student
- Iqra Malik
-Total Points
-- / 100 pts
-
-Autograder Score
-40.0 / 100.0
-Failed Tests
-test_web_server (test_simple.TestWebServer) (40/100)
