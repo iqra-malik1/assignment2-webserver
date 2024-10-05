@@ -17,7 +17,6 @@ def webServer(port=13331):
       file = open(fileName[1:], 'rb')
 
       validResponse = b"HTTP/1.1 200 OK\r\n"
-      outputMessage = b"Content-Type: text/html; charset=UTF-8\r\n"
       outputMessage += b"Server: MyServer\r\n"
       outputMessage += b"Connection: Done! \r\n\r\n"
                
