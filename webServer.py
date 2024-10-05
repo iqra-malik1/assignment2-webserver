@@ -11,12 +11,13 @@ def webServer(port=13331):
     connectionSocket, addr = serverSocket.accept()
     
     try:
-      message = connectionSocket.recv(1024)
+      message = connectionSocket.recv(1024).decode()
       fileName = message.split()[1]
       
       file = open(fileName[1:], 'rb')
 
       validResponse = b"HTTP/1.1 200 OK\r\n"
+      outputMessage = b"Content-Type: text/html; charset=UTF-8\r\n"
       outputMessage += b"Server: MyServer\r\n"
       outputMessage += b"Connection: Done! \r\n\r\n"
                
@@ -40,4 +41,3 @@ def webServer(port=13331):
 
 if __name__ == "__main__":
   webServer(13331)
-
