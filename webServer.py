@@ -25,17 +25,17 @@ def webServer(port=13331):
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?    
 
       validResponse = b"HTTP/1.1 200 OK\r\n"
-      outputResponse = b"Content-Type: text/html; charset=UTF-8\r\n"
-      outputResponse += b"Server: SimplePythonServer\r\n"
-      outputResponse += b"Connection: Close \r\n\r\n"
+      outputMessage = b"Content-Type: text/html; charset=UTF-8\r\n"
+      outputMessage += b"Server: SimplePythonServer\r\n"
+      outputMessage += b"Connection: Close \r\n\r\n"
                
       for i in f: #for line in file
-        outputResponse += f.read()
+        outputMessage += f.read()
         
       #Send the content of the requested file to the client (don't forget the headers you created)!
       #Send everything as one send command, do not send one line/item at a time!
       
-      connectionSocket.sendall(validResponse + outputResponse + f.read())
+      connectionSocket.sendall(validResponse + outputMessage + f.read())
 
       connectionSocket.close() #closing the connection socket
       
