@@ -26,8 +26,8 @@ def webServer(port=13331):
 
       validResponse = b"HTTP/1.1 200 OK\r\n"
       outputMessage = b"Content-Type: text/html; charset=UTF-8\r\n"
-      outputMessage += b"Server: SimplePythonServer\r\n"
-      outputMessage += b"Connection: Close \r\n\r\n"
+      outputMessage += b"Server: MyServer\r\n"
+      outputMessage += b"Connection: Done! \r\n\r\n"
                
       for line in file: #for line in file
         outputMessage += file.read()
@@ -45,8 +45,8 @@ def webServer(port=13331):
 
       errorResponse = b"HTTP/1.1 404 Not Found\r\n"
       errorResponse += b"Content-Type: text/html; charset=UTF-8\r\n"
-      errorResponse += b"Server: SimplePythonServer\r\n"
-      errorResponse += b"Connection: Close \r\n\r\n"
+      errorResponse += b"Server: MyServer\r\n"
+      errorResponse += b"Connection: Done! \r\n\r\n"
       errorResponseHTML = b"<html><body><h1>404 Not Found</h1></body></html>\r\n"
       
       connectionSocket.sendall(errorResponse + errorResponseHTML)
