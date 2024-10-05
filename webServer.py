@@ -35,7 +35,7 @@ def webServer(port=13331):
       #Send the content of the requested file to the client (don't forget the headers you created)!
       #Send everything as one send command, do not send one line/item at a time!
       
-      connectionSocket.sendall(responseHeader + outputdata)
+      connectionSocket.sendall(responseHeader + outputdata).encode()
 
       connectionSocket.close() #closing the connection socket
       
@@ -49,7 +49,7 @@ def webServer(port=13331):
       errorResponseHeader += "Connection: Close \r\n\r\n"
       errorResponseBody = "<html><body><h1>404 Not Found</h1></body></html>\r\n"
       
-      connectionSocket.sendall(errorResponseHeader + errorResponseBody)
+      connectionSocket.sendall(errorResponseHeader + errorResponseBody).encode()
 
       #Close client socket
       connectionSocket.close()
