@@ -24,7 +24,7 @@ def webServer(port=13331):
 
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?    
 
-      responseHeader = b"HTTP/1.1 200 OK\r\n"
+      validResponse = b"HTTP/1.1 200 OK\r\n"
       outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
       outputdata += b"Server: SimplePythonServer\r\n"
       outputdata += b"Connection: Close \r\n\r\n"
@@ -35,7 +35,7 @@ def webServer(port=13331):
       #Send the content of the requested file to the client (don't forget the headers you created)!
       #Send everything as one send command, do not send one line/item at a time!
       
-      connectionSocket.sendall(responseHeader + outputdata + f.read())
+      connectionSocket.sendall(validResponse + outputdata + f.read())
 
       connectionSocket.close() #closing the connection socket
       
@@ -43,13 +43,13 @@ def webServer(port=13331):
       # Send response message for invalid request due to the file not being found (404)
       # Remember the format you used in the try: block
 
-      errorResponseHeader = b"HTTP/1.1 404 Not Found\r\n"
-      errorResponseHeader += b"Content-Type: text/html; charset=UTF-8\r\n"
-      errorResponseHeader += b"Server: SimplePythonServer\r\n"
-      errorResponseHeader += b"Connection: Close \r\n\r\n"
+      errorResponse = b"HTTP/1.1 404 Not Found\r\n"
+      errorResponse += b"Content-Type: text/html; charset=UTF-8\r\n"
+      errorResponse += b"Server: SimplePythonServer\r\n"
+      errorResponse += b"Connection: Close \r\n\r\n"
       errorResponseBody = b"<html><body><h1>404 Not Found</h1></body></html>\r\n"
       
-      connectionSocket.sendall(errorResponseHeader + errorResponseBody)
+      connectionSocket.sendall(errorResponse + errorResponseBody)
 
       #Close client socket
       connectionSocket.close()
