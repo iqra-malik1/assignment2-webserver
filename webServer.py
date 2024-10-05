@@ -11,8 +11,6 @@ def webServer(port=13331):
   serverSocket.listen(1)
   
   while True:
-    #Establish the connection
-    
     connectionSocket, addr = serverSocket.accept() #are you accepting connections?
     
     try:
@@ -26,18 +24,18 @@ def webServer(port=13331):
 
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?    
 
-      validResponseHeader = "HTTP/1.1 200 OK"
+      responseHeader = "HTTP/1.1 200 OK"
       outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
       outputdata += b"Server: SimplePythonServer\r\n"
       outputdata += b"Connection: Close \r\n\r\n"
                
       for i in f: #for line in file
-        outputdata = f.read()
+        outputdata += f.read()
         
       #Send the content of the requested file to the client (don't forget the headers you created)!
       #Send everything as one send command, do not send one line/item at a time!
       
-      connectionSocket.sendall(validResponseHeader.encode() + outputdata)
+      connectionSocket.sendall(responseHeader + outputdata)
 
       connectionSocket.close() #closing the connection socket
       
@@ -51,11 +49,10 @@ def webServer(port=13331):
       errorResponseHeader += "Connection: Close \r\n\r\n"
       errorResponseBody = "<html><body><h1>404 Not Found</h1></body></html>\r\n"
       
-      connectionSocket.sendall((errorResponseHeader + errorResponseBody).encode())
+      connectionSocket.sendall(errorResponseHeader + errorResponseBody)
 
       #Close client socket
       connectionSocket.close()
 
 if __name__ == "__main__":
   webServer(13331)
-
