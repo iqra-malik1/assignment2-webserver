@@ -8,7 +8,7 @@ def webServer(port=13331):
   
   #Prepare a server socket
   serverSocket.bind(("", port))
-  serverSocket.listen()
+  serverSocket.listen(1)
   
   while True:
     #Establish the connection
@@ -17,7 +17,7 @@ def webServer(port=13331):
     
     try:
        #a client is sending you a message 
-      message = connectionSocket.recv(1024)
+      message = connectionSocket.recv(1024).decode()
       filename = message.split()[1]
       
       #opens the client requested file. 
@@ -28,7 +28,7 @@ def webServer(port=13331):
 
       validResponseHeader = "HTTP/1.1 200 OK"
       outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
-      outputdata += b"Server: Python Server\r\n"
+      outputdata += b"Server: SimplePythonServer\r\n"
       outputdata += b"Connection: Close \r\n\r\n"
                
       for i in f: #for line in file
@@ -47,12 +47,15 @@ def webServer(port=13331):
 
       errorResponseHeader = "HTTP/1.1 404 Not Found\r\n"
       errorResponseHeader += "Content-Type: text/html; charset=UTF-8\r\n"
+      errorResponseHeader += "Server: SimplePythonServer\r\n"
       errorResponseHeader += "Connection: Close \r\n\r\n"
+      errorResponseBody = "<html><body><h1>404 Not Found</h1></body></html>\r\n"
       
-      connectionSocket.sendall(errorResponseHeader.encode() + errorResponseHeader.encode())
+      connectionSocket.sendall((errorResponseHeader + errorResponseBody).encode())
 
       #Close client socket
       connectionSocket.close()
 
 if __name__ == "__main__":
   webServer(13331)
+
